@@ -24,6 +24,11 @@ class Process {
             const targetId = $(this).attr('href');
             $(this).addClass(_this.className).siblings().removeClass(_this.className);
             $(targetId).addClass(_this.className).siblings().removeClass(_this.className);
+            
+            if(_this.autoSlide)
+                _this.stopAutoSlide();
+                _this.enableAutoSlide();
+            
         })  
     }
 
@@ -32,11 +37,13 @@ class Process {
         this.enableAutoSlide();
     }
 
+    stopAutoSlide(){
+        clearInterval( this.interval );
+    }
+
     enableAutoSlide(){
         this.interval = setInterval( ()=>{
-            clearInterval( this.interval );
             this.jumpToNext( this );
-            this.enableAutoSlide();
         }, this.intervalTime )
     }
 
